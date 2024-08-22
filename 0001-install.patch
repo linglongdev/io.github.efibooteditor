@@ -1,0 +1,24 @@
+From 591b1dea8e41b584a2c38704dda2dc8d09bb2944 Mon Sep 17 00:00:00 2001
+From: wjyrich <1071633242@qq.com>
+Date: Tue, 20 Aug 2024 15:16:56 +0800
+Subject: [PATCH] install
+
+---
+ CMakeLists.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d808792..d2b2a1b 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -333,6 +333,7 @@ if(APPLE)
+     )
+ 
+ elseif(UNIX)
++set(ENV{PKG_CONFIG_PATH} "lib64/pkgconfig:$ENV{PKG_CONFIG_PATH}")
+     find_package(PkgConfig REQUIRED)
+     pkg_check_modules(EFIVAR REQUIRED efivar efiboot)
+ 
+-- 
+2.43.4
+

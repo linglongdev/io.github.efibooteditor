@@ -1,0 +1,48 @@
+version: "1"
+
+package:
+  id: io.github.efibooteditor
+  name: efibooteditor
+  version: 1.4.0.1
+  kind: app
+  description: |
+    Boot Editor for (U)EFI based systems
+
+command:
+  - /opt/apps/io.github.efibooteditor/files/bin/efibooteditor
+
+base: org.deepin.foundation/23.0.0
+runtime: org.deepin.Runtime/23.0.1
+
+sources:
+  - kind: git
+    url: https://github.com/Neverous/efibooteditor.git
+    version: master
+    commit: 7df7f262b9ec9cf3534abb170ed61c3e7ee7d321
+
+  - kind: file
+    url: http://ftp.cn.debian.org/debian/pool/main/e/efivar/efivar_37-2+deb10u1_amd64.deb
+    digest: 9acb9c5d4f8ba1af3ef6d3e2f2e895bbd404f3ea865b926995c69dcb4fd39b49
+  - kind: file
+    url: http://ftp.cn.debian.org/debian/pool/main/e/efivar/libefivar1_37-2+deb10u1_amd64.deb
+    digest: 8b07ae073e811b92f9a0ad42f21b4dc30ea09c9d066292913078604b13f93878
+  - kind: file
+    url: http://ftp.cn.debian.org/debian/pool/main/e/efivar/libefiboot1_37-2+deb10u1_amd64.deb
+    digest: 542b65ae3f9d5ab397db259a3e4591dae757caea09a3f67b5460352bf240fb1f
+  - kind: file
+    url: http://ftp.cn.debian.org/debian/pool/main/e/efivar/libefivar-dev_37-2+deb10u1_amd64.deb
+    digest: 6ebc4fd9c16522be5ca63c3251223ea32fb6f7a5ed7432b06a41ef70e258eb03
+  - kind: file
+    url: http://ftp.cn.debian.org/debian/pool/main/e/efivar/libefivar1_37-2+deb10u1_amd64.deb
+    digest: 8b07ae073e811b92f9a0ad42f21b4dc30ea09c9d066292913078604b13f93878
+  - kind: file
+    url: http://ftp.cn.debian.org/debian/pool/main/e/efivar/libefiboot-dev_37-2+deb10u1_amd64.deb
+    digest: 23a27ba8b071fecf06ed3f603efc2307ccf32dc9b631e7701cbeb33fc140aa95
+build: |
+  bash ./install_dep linglong/sources $PREFIX
+  cd /project/linglong/sources/efibooteditor.git
+  mkdir build
+  cd build
+  cmake .. \
+        -DCMAKE_INSTALL_PREFIX=${PREFIX}
+  cmake --build . --target install -j$(nproc --all)
